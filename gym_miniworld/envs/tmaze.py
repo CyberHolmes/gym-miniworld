@@ -62,6 +62,7 @@ class TMaze(MiniWorldEnv):
     def step(self, action):
         obs, reward, done, info = super().step(action)
 
+        #reward -= np.linalg.norm(self.box.pos - self.agent.pos)/1000
         if self.near(self.box):
             reward += self._reward()
             done = True

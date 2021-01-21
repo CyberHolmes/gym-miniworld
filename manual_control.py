@@ -40,6 +40,7 @@ def step(action):
     print('step {}/{}: {}'.format(env.step_count+1, env.max_episode_steps, env.actions(action).name))
 
     obs, reward, done, info = env.step(action)
+    print(env.observation_space.shape)
 
     if reward > 0:
         print('reward={:.2f}'.format(reward))

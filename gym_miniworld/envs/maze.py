@@ -4,6 +4,7 @@ from gym import spaces
 from ..miniworld import MiniWorldEnv, Room
 from ..entity import Box, ImageFrame
 from ..params import DEFAULT_PARAMS
+from ..math import *
 
 class Maze(MiniWorldEnv):
     """
@@ -104,7 +105,36 @@ class Maze(MiniWorldEnv):
         self.place_agent()
 
     def step(self, action):
-        obs, reward, done, info = super().step(action)
+        obs, reward, done, info = super().step(action)   
+        #print(intersect_circle_segs(self.agent.pos, np.linalg.norm(self.box.pos - self.agent.pos), self.wall_segs))
+        #print(not intersect_wall_points(self.agent.pos,self.box.pos,self.wall_segs))
+        # print(self.wall_segs.shape)
+        # print(self.wall_segs[0])
+        # qx1, _, qz1 = self.wall_segs[0,1,:]
+        # print(qx1)
+        # print(qz1)
+        # if not intersect_wall_points(self.agent.pos,self.box.pos,self.wall_segs):
+        #     #print(np.linalg.norm(self.box.pos - self.agent.pos)/10000)
+        #     reward += 0.001-np.linalg.norm(self.box.pos - self.agent.pos)/10000
+        #reward -= np.linalg.norm(self.box.pos - self.agent.pos)/10000
+        #print(np.linalg.norm(self.box.pos - self.agent.pos)/10000)
+
+        # for i in range(len(self.agent.past_pos)-3):
+        #     dist = np.linalg.norm(self.agent.pos- self.agent.past_pos[i])
+        #     if dist < 1.5 * self.max_forward_step:
+        #         reward -= 0.000001
+        #         print(reward)
+        
+        # self.agent.past_pos=np.append(self.agent.past_pos,[self.agent.pos],axis=0)
+        # if len(self.agent.past_pos)>20: #only keep the last 20 steps
+        #     self.agent.past_pos=np.delete(self.agent.past_pos,0,0)
+        #print(np.linalg.norm(self.box.pos - self.agent.pos))
+        # if not intersect_wall_points(self.agent.pos,self.box.pos,self.wall_segs):
+        #     reward -= np.linalg.norm(self.box.pos - self.agent.pos)/100
+        # else:
+        #     reward -= 0.1 
+        
+        #reward -= np.linalg.norm(self.box.pos - self.agent.pos)/1000
 
         if self.near(self.box):
             reward += self._reward()

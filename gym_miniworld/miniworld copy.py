@@ -739,7 +739,7 @@ class MiniWorldEnv(gym.Env):
         # print(not intersect_wall_points(self.agent.pos,self.box.pos,self.wall_segs))
         # print(0.01-np.linalg.norm(self.box.pos - self.agent.pos)/10000)
         # If the maximum time step count is reached
-        temp = np.linalg.norm(self.agent.past_pos - self.agent.pos,axis=1)
+        # temp = np.linalg.norm(self.agent.past_pos - self.agent.pos,axis=1)
         # if np.count_nonzero(temp<0.8)>9:
         #     self.stall_count += 1
         #     #print('stalling')
@@ -763,9 +763,7 @@ class MiniWorldEnv(gym.Env):
         self.agent.past_pos=np.append(self.agent.past_pos,[self.agent.pos],axis=0)
         if len(self.agent.past_pos)>6: #only keep the last 10 steps
             self.agent.past_pos=np.delete(self.agent.past_pos,0,0)
-        #print(temp)
-        #reward = -(np.count_nonzero(temp<0.8)>5)*5  / self.max_episode_steps #-(self.stall_count)  / self.max_episode_steps
-        reward = 0
+        reward = 0 #-(self.stall_count)  / self.max_episode_steps
         done = False
 
         return obs, reward, done, {}

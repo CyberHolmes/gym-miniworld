@@ -3,7 +3,6 @@ import glob
 import os
 import time
 import types
-import csv
 from collections import deque
 
 import gym
@@ -168,17 +167,6 @@ def main():
                     np.count_nonzero(np.greater(episode_rewards, 0)) / len(episode_rewards)
                 )
             )
-            with open(save_path+'/TrainingStats_file.csv', mode='a') as train_file:
-                train_writer = csv.writer(train_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-
-                train_writer.writerow([j, total_num_steps,
-                    int(total_num_steps / (end - start)),
-                    len(episode_rewards),
-                    np.mean(episode_rewards),
-                    np.median(episode_rewards),
-                    np.min(episode_rewards),
-                    np.max(episode_rewards),
-                    np.count_nonzero(np.greater(episode_rewards, 0)) / len(episode_rewards)])
 
         if args.eval_interval is not None and len(episode_rewards) > 1 and j % args.eval_interval == 0:
             eval_envs = make_vec_envs(args.env_name, args.seed + args.num_processes, args.num_processes,

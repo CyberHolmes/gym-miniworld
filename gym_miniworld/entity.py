@@ -454,6 +454,12 @@ class Agent(Entity):
         # Object currently being carried by the agent
         self.carrying = None
 
+        # Last 10 positions
+        self.past_pos = np.zeros([1,3])
+
+        # Number of times agent gets close to a wall
+        self.nearEdge = 0
+
     @property
     def cam_pos(self):
         """
